@@ -1,0 +1,42 @@
+{
+  "name": "machinepack-firebase",
+  "version": "1.0.0",
+  "description": "This machinepack lets you commuicate with the Firebase API to store and sync your data in realtime.",
+  "scripts": {
+    "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
+  },
+  "keywords": [
+    "Firebase",
+    "machines",
+    "machinepack"
+  ],
+  "author": "Nile Frater",
+  "license": "MIT",
+  "dependencies": {
+    "JSON": "^1.0.0",
+    "firebase": "^2.2.3",
+    "machine": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nilefrater/machinepack-firebase.git"
+  },
+  "devDependencies": {
+    "test-machinepack-mocha": "^0.2.2"
+  },
+  "machinepack": {
+    "iconSrc": "http://upload.wikimedia.org/wikipedia/en/b/bd/Firebase_Logo.png",
+    "friendlyName": "Firebase",
+    "machineDir": "machines/",
+    "machines": [
+      "set-data",
+      "push-data",
+      "update-data",
+      "read-value",
+      "json-to-string",
+      "query-by-child_changed",
+      "query-by-child_added",
+      "query-by-child_removed"
+    ]
+  }
+}
