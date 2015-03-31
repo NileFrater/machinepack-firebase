@@ -1,6 +1,6 @@
 {
   "name": "machinepack-firebase",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "This machinepack lets you commuicate with the Firebase API to store and sync your data in realtime.",
   "scripts": {
     "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
