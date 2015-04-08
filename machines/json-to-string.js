@@ -1,15 +1,15 @@
 module.exports = {
 
-  friendlyName: 'Convert string to JSON',
+  friendlyName: 'Convert JSON to String',
 
-  description: 'Firebase writes data as a JSON object. You can convert your JSON-format string to a JSON object with this machine.',
+  description: 'Firebase reads data as a JSON object. You can convert this to a string with this machine.',
 
   extendedDescription: 'This will parse your data from a JSON Object into a string.',
   inputs: {
 
-    string: {
+    object: {
       example: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}',
-      description: 'The string you wish to convert.',
+      description: 'The object you wish to convert into a string.',
       typeclass: '*',
       required: true
     }
@@ -17,14 +17,14 @@ module.exports = {
 
   defaultExit: 'success',
 
-  exits: {
+ exits: {
 
     error: {
       description: 'An unexpected error occurred.'
     },
     parseFailure: {
-      description: 'The data provided is not in valid JSON format.',
-      moreInfo: 'This usually happens due to a lack of double-quotes or because your variable is already a JSON object. You can check out exactly how to present your string of data here: http://www.json.org/'
+      description: 'The data provided is not a valid JSON object.',
+      moreInfo: 'This usually happens due to a lack of double-quotes or because your variable is already a string. You can check out exactly how to present your string of data here: http://www.json.org/'
     },
     success: {
       description: 'Your data has been parsed into a JSON object!',
@@ -37,14 +37,14 @@ module.exports = {
     var jdata;
 
     try {
-      jdata= JSON.parse(inputs.string);
+      jdata= JSON.stringify(inputs.object);
     }
     catch (e){
       return exits.parseFailure(e);
     }
 
     return exits.success({
-      description: "String succesfully converted.",
+      description: "Object succesfully converted.",
       data: jdata
     });
   },
