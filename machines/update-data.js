@@ -18,9 +18,8 @@ module.exports = {
       required: true
     },
     write: {
-      example: '{"email": "MyNewEmail@gmail.com"}',
+      example: '*',
       description: 'The dataset you wish to write to the .',
-      typeclass: '*',
       required: true
     }
   },

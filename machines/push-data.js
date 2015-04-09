@@ -18,9 +18,8 @@ module.exports = {
       required: true
     },
     write: {
-      example: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}',
+      example: '*',
       description: 'The dataset you wish to write to your Firebase instance, in JSON form.',
-      typeclass: '*',
       required: true
     }
   },

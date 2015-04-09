@@ -8,9 +8,8 @@ module.exports = {
   inputs: {
 
     object: {
-      example: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}',
+      example: '*',
       description: 'The object you wish to convert into a string.',
-      typeclass: '*',
       required: true
     }
   },
