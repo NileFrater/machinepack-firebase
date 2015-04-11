@@ -15,12 +15,10 @@ module.exports = {
     child: {
       example: 'users',
       description: 'The child of your reference URL which you wish to write to.',
-      required: true
     },
     write: {
-      example: '{"email": "MyNewEmail@gmail.com"}',
-      description: 'The dataset you wish to write to the .',
-      typeclass: '*',
+      description: 'The children to overwrite in the data path.',
+      typeclass: 'dictionary',
       required: true
     }
   },
@@ -32,10 +30,6 @@ module.exports = {
     error: {
       description: 'An unexpected error occurred.'
     },
-    parseFailure: {
-      description: 'The data provided could not be parsed into a JSON Object.',
-      moreInfo: 'This usually happens due to a lack of double-quotes. You can check out exactly how to present your string of data here: http://www.json.org/'
-    },
     success: {
       description: 'Firebase has written your data!'
     }
@@ -43,34 +37,27 @@ module.exports = {
 
   fn: function (inputs, exits) {
 
+    // Require the Firebase SDK
     var Firebase = require('firebase');
 
+    // Get the root reference
     var rootRef = new Firebase(inputs.firebaseURL);
 
-    var finalRef = rootRef.child(inputs.child);
+    // If a child path is specified, get a reference to that data path
+    var finalRef = inputs.child ? rootRef.child(inputs.child) : rootRef;
 
-    var jdata;
+    // Set the data at the path
+    finalRef.update(inputs.write, function(error) {
 
-    try {
-      jdata= JSON.parse(inputs.write);
-    }
-    catch (e){
-      return exits.parseFailure(e);
-    }
+      // Handle errors
+      if (error) {
+        return exits.error(error);
+      }
 
+      // Return success
+      return exits.success();
+    });
 
-    finalRef.update(jdata, function(error) {
-        if (error) {
-          return exits.error({
-            description: error
-          });
-        } else {
-          console.log("Firebase has updated Child " + finalRef + " with the following data:", inputs.write);
-          return exits.success({
-            description: "Firebase has successfully updated your data."
-          });
-        }
-      });
   },
 
 };

@@ -33,6 +33,7 @@
       "push-data",
       "update-data",
       "read-value",
+      "remove-value",
       "query-by-child_changed",
       "query-by-child_added",
       "query-by-child_removed",
