@@ -15,11 +15,9 @@ module.exports = {
     child: {
       example: 'users',
       description: 'The child of your reference URL which you wish to write to.',
-      required: true
     },
     write: {
-      example: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}',
-      description: 'The dataset you wish to write to your Firebase instance, in JSON form.',
+      description: 'The dataset you wish to write to your Firebase instance.',
       typeclass: '*',
       required: true
     }
@@ -32,44 +30,38 @@ module.exports = {
     error: {
       description: 'An unexpected error occurred.'
     },
-    parseFailure: {
-      description: 'The data provided could not be parsed into a JSON Object.',
-      moreInfo: 'This usually happens due to a lack of double-quotes. You can check out exactly how to present your string of data here: http://www.json.org/'
-    },
+
     success: {
-      description: 'Firebase has written your data!'
+      example: "-JmahDOMzYCH1R_gGEAL",
+      description: "The unique key generated for the new data path."
     }
+
   },
 
   fn: function (inputs, exits) {
 
+    // Require the Firebase SDK
     var Firebase = require('firebase');
 
+    // Get the root reference
     var rootRef = new Firebase(inputs.firebaseURL);
 
-    var finalRef = rootRef.child(inputs.child);
+    // If a child path is specified, get a reference to that data path
+    var finalRef = inputs.child ? rootRef.child(inputs.child) : rootRef;
 
-    var jdata;
+    // Create a new data reference
+    var dataRef = finalRef.push(inputs.write, function(error) {
 
-    try {
-      jdata= JSON.parse(inputs.write);
-    }
-    catch (e){
-      return exits.parseFailure(e);
-    }
-
-
-    finalRef.push(jdata, function(error) {
+        // Handle errors
         if (error) {
-          return exits.error({
-            description: error
-          });
-        } else {
-          console.log("Firebase has logged the following data:", inputs.write);
-          return exits.success({
-            description: "Firebase has successfully logged your data."
-          });
+          return exits.error(error);
         }
+
+        // Get the unique ID of the new data path
+        var key = dataRef.key();
+
+        // Return it through the success exit
+        return exits.success(key);
       });
   },
 
