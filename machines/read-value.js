@@ -22,27 +22,30 @@ module.exports = {
       description: 'An unexpected error occurred.'
     },
     success: {
-      data: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}'
+      example: '{ "User 1": {"email": "user@gmail.com", "password": "password123"}}',
+      description: "The data at the specified path, as a JSON string."
     }
   },
 
   fn: function (inputs, exits) {
 
+    // Require the Firebase SDK
     var Firebase = require('firebase');
 
+    // Get the data path reference
     var ref = new Firebase(inputs.firebaseURL);
 
-    ref.on("value", function(snapshot) {
-        console.log(snapshot.val());
-        return exits.success({
-          data: snapshot.val()
-        });
-      }, function(errorObject) {
-          console.log("The Read operation failed: " + errorObject.code);
-          return exits.error({
-            description: "The Read operation failed: " + errorObject.code
-          });
-      });
+    // Attempt to read from the data path
+    ref.once("value", function(snapshot) {
+
+      // Return the data as a JSON string through the success exit
+      return exits.success(JSON.stringify(snapshot.val()));
+    },
+
+    // In case of error, send the error throuh the error exit
+    function(errorObject) {
+        return exits.error(errorObject);
+    });
 
   },
 
