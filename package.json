@@ -25,7 +25,7 @@
     "test-machinepack-mocha": "^0.2.2"
   },
   "machinepack": {
-    "iconSrc": "http://upload.wikimedia.org/wikipedia/en/b/bd/Firebase_Logo.png",
+    "iconSrc": "https://pbs.twimg.com/profile_images/1974595305/firebase_branding_r4_FINAL_03.png",
     "friendlyName": "Firebase",
     "machineDir": "machines/",
     "machines": [
