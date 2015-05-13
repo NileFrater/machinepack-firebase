@@ -1,6 +1,6 @@
 {
   "name": "machinepack-firebase",
-  "version": "2.2.1",
+  "version": "3.1.0",
   "description": "This machinepack lets you commuicate with the Firebase API to store and sync your data in realtime.",
   "scripts": {
     "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
@@ -25,7 +25,7 @@
     "test-machinepack-mocha": "^0.2.2"
   },
   "machinepack": {
-    "iconSrc": "https://pbs.twimg.com/profile_images/1974595305/firebase_branding_r4_FINAL_03.png",
+    "iconSrc": "https://s3-us-west-1.amazonaws.com/machinepack-icons/machinepack_firebase.png",
     "friendlyName": "Firebase",
     "machineDir": "machines/",
     "machines": [
@@ -34,9 +34,6 @@
       "update-data",
       "read-value",
       "remove-value",
-      "query-by-child_changed",
-      "query-by-child_added",
-      "query-by-child_removed",
       "string-to-json",
       "json-to-string"
     ]
